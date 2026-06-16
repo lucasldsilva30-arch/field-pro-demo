@@ -68,30 +68,11 @@ export default function OperacaoPage() {
         <section className="rounded-xl border border-yellow-950/70 bg-zinc-950 p-6">
           <h2 className="text-lg font-bold text-white">Catalogo Conecta</h2>
           <p className="mt-2 text-sm text-slate-400">
-            O catalogo abaixo fica visivel para apresentacao, mas sem cadastro ou alteracao de itens.
+            O catalogo foi ocultado nesta demonstracao para nao exibir nenhuma regra operacional interna.
           </p>
 
-          <div className="mt-5 overflow-hidden rounded-xl border border-white/10">
-            <table className="w-full min-w-[720px] text-left text-sm">
-              <thead className="bg-white/5 text-slate-400">
-                <tr>
-                  <th className="px-4 py-3">Codigo</th>
-                  <th className="px-4 py-3">Descricao</th>
-                  <th className="px-4 py-3">Pontos</th>
-                  <th className="px-4 py-3">Valor</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                {dataByCompany.conectaCodes.map((code) => (
-                  <tr key={code.id}>
-                    <td className="px-4 py-3 font-bold text-yellow-300">{code.code}</td>
-                    <td className="px-4 py-3 text-slate-300">{code.description}</td>
-                    <td className="px-4 py-3 text-slate-400">{code.points}</td>
-                    <td className="px-4 py-3 text-slate-400">R$ {code.value.toFixed(2)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="mt-5 rounded-xl border border-dashed border-white/10 bg-black/30 px-4 py-10 text-center text-sm text-slate-500">
+            Nenhum codigo operacional exibido na demo.
           </div>
         </section>
 
