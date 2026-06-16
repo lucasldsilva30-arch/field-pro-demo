@@ -14,12 +14,12 @@ type ErpShellProps = {
 
 const navigation = [
   { key: "dashboard", label: "Dashboard", href: "/dashboard", icon: "home" },
-  { key: "operacao", label: "OperaÃ§Ã£o", href: "/operacao", icon: "activity" },
+  { key: "operacao", label: "Operação", href: "/operacao", icon: "activity" },
   { key: "indicadores", label: "Indicadores", href: "/indicadores", icon: "chart" },
-  { key: "funcionarios", label: "FuncionÃ¡rios", href: "/funcionarios", icon: "users" },
+  { key: "funcionarios", label: "Funcionários", href: "/funcionarios", icon: "users" },
   { key: "financeiro", label: "Financeiro", href: "/financeiro", icon: "wallet" },
-  { key: "seguranca", label: "SeguranÃ§a", href: "/seguranca", icon: "lock" },
-  { key: "configuracoes", label: "ConfiguraÃ§Ãµes", href: "/configuracoes", icon: "settings" },
+  { key: "seguranca", label: "Segurança", href: "/seguranca", icon: "lock" },
+  { key: "configuracoes", label: "Configurações", href: "/configuracoes", icon: "settings" },
 ] as const;
 
 export function ErpShell({ active, children }: ErpShellProps) {
@@ -134,7 +134,7 @@ function NavLink({ active, href, icon, label }: { active: boolean; href: string;
         <MenuIcon name={icon} />
         {label}
       </span>
-      <span className="text-slate-500 group-hover:text-white">â€º</span>
+      <span className="text-slate-500 group-hover:text-white">›</span>
     </Link>
   );
 }
