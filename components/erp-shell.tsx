@@ -114,7 +114,7 @@ function LogoMark() {
   return (
     <div className="grid size-11 place-items-center rounded-2xl border border-yellow-500/40 bg-black shadow-[0_0_24px_rgba(245,185,0,0.18)]">
       <span className="bg-gradient-to-br from-yellow-200 via-yellow-500 to-yellow-800 bg-clip-text text-2xl font-black italic text-transparent">
-        A
+        E
       </span>
     </div>
   );
@@ -163,7 +163,7 @@ function CompanySelector({
             </option>
           ))}
         </select>
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 erp-accent-text">âŒ„</span>
+        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 erp-accent-text">⌄</span>
       </div>
     </label>
   );

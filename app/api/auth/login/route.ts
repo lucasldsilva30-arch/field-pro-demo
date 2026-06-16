@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   const expectedPassword = getCurrentPassword();
 
   if (password !== expectedPassword) {
-    return NextResponse.json({ error: "Senha invÃ¡lida." }, { status: 401 });
+    return NextResponse.json({ error: "Senha inválida." }, { status: 401 });
   }
 
   const response = NextResponse.json({ success: true });

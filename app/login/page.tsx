@@ -22,13 +22,13 @@ export default function LoginPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Senha invÃ¡lida.");
+        throw new Error("Senha inválida.");
       }
 
       router.push("/dashboard");
       router.refresh();
     } catch (loginError) {
-      setError(loginError instanceof Error ? loginError.message : "NÃ£o foi possÃ­vel entrar.");
+      setError(loginError instanceof Error ? loginError.message : "Não foi possível entrar.");
     } finally {
       setLoading(false);
     }

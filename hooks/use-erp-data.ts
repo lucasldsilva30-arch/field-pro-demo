@@ -5,7 +5,7 @@ import { COMPANY_STORAGE_KEY, DEFAULT_COMPANY, filterErpDataByCompany, isCompany
 import { defaultErpData } from "@/lib/defaults";
 import type { CompanyName, ConectaCode, Employee, ErpData, FinanceEntry, ProductionRecord, VrRecord } from "@/lib/types";
 
-const STORAGE_KEY = "fieldpro-erp-v2";
+const STORAGE_KEY = "fieldpro-erp-v3";
 const COMPANY_CHANGE_EVENT = "fieldpro-company-change";
 
 export function useErpData() {
