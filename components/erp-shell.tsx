@@ -41,12 +41,11 @@ export function ErpShell({ active, children }: ErpShellProps) {
             ))}
           </nav>
 
-          <form action="/api/auth/logout" method="post" className="px-3 pb-4">
-            <button className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-slate-400 transition hover:bg-white/5 hover:text-slate-100">
-              <MenuIcon name="logout" />
-              Sair
-            </button>
-          </form>
+          <div className="px-3 pb-4">
+            <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-3 text-xs text-slate-400">
+              Acesso livre ao painel
+            </div>
+          </div>
         </aside>
 
         <section className="min-w-0 flex-1">
@@ -179,7 +178,6 @@ function MenuIcon({ name }: { name: string }) {
     wallet: <path d="M3 7h18v13H3zM16 12h3M5 7V5a2 2 0 0 1 2-2h10v4" />,
     lock: <path d="M7 11V7a5 5 0 0 1 10 0v4M5 11h14v10H5z" />,
     settings: <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm0-13v3m0 13v3m9.5-9.5h-3m-13 0h-3m16.02-6.52-2.12 2.12M7.6 16.4l-2.12 2.12m13.04 0-2.12-2.12M7.6 7.6 5.48 5.48" />,
-    logout: <path d="M10 17l5-5-5-5m5 5H3m7 9h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-8" />,
   };
 
   return (
