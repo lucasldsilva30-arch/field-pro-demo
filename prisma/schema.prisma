@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Empresa {
+  id           String          @id @default(cuid())
+  nome         String
+  cnpj         String?         @unique
+  status       EmpresaStatus   @default(ATIVA)
+  criadoEm     DateTime        @default(now())
+  atualizadoEm DateTime        @updatedAt
+  dados        DadoPlanilha[]
+
+  @@index([nome])
+}
+
+model DadoPlanilha {
+  id           String   @id @default(cuid())
+  nome         String
+  telefone     String?
+  plano        String?
+  status       String?
+  empresaId    String
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  dadosOriginais Json?
+  empresa      Empresa  @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+
+  @@index([empresaId])
+  @@index([empresaId, status])
+  @@index([empresaId, nome])
+}
+
+enum EmpresaStatus {
+  ATIVA
+  INATIVA
+}
+
