@@ -84,7 +84,7 @@ export default function DashboardPage() {
         </section>
 
         <ModuleSpreadsheetActions
-          description="Exporta um resumo gerencial somente da empresa selecionada."
+          description="A visualizacao do dashboard fica bloqueada para importacao e exportacao nesta demonstracao."
           empresa={empresaAtiva}
           moduleKey="dashboard"
           moduleLabel="Dashboard"

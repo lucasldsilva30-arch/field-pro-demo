@@ -42,7 +42,7 @@ export default function IndicadoresPage() {
         </section>
 
         <ModuleSpreadsheetActions
-          description="Exporta e importa indicadores operacionais apenas da empresa ativa."
+          description="Esta demonstracao mostra os indicadores em modo somente leitura."
           empresa={empresaAtiva}
           moduleKey="indicadores"
           moduleLabel="Indicadores"
