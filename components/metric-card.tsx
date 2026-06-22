@@ -14,10 +14,10 @@ const toneClass = {
 
 export function MetricCard({ label, value, helper, tone = "default" }: MetricCardProps) {
   return (
-    <article className="rounded-xl border border-yellow-950/70 bg-zinc-950 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-      <p className="text-sm text-slate-400">{label}</p>
-      <strong className="mt-6 block text-3xl tracking-tight text-white">{value}</strong>
-      <p className={`mt-2 text-sm ${toneClass[tone]}`}>{helper}</p>
+    <article className="rounded-xl border border-yellow-950/70 bg-zinc-950 p-5 font-sans shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">{label}</p>
+      <strong className="mt-5 block text-[2rem] font-black tracking-tight text-white">{value}</strong>
+      <p className={`mt-2 text-sm font-medium ${toneClass[tone]}`}>{helper}</p>
     </article>
   );
 }

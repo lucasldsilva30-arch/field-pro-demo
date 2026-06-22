@@ -32,8 +32,9 @@ export type FinanceEntry = {
   id: string;
   empresa: CompanyName;
   date: string;
+  dueDate?: string;
   description: string;
-  type: "Entrada" | "Saída";
+  type: string;
   category: string;
   amount: number;
   paid: boolean;
@@ -49,6 +50,54 @@ export type VrRecord = {
   valorDia: number;
   valorSabado: number;
   amount: number;
+};
+
+export type MaterialStatus = "Disponivel" | "Baixo estoque" | "Sem estoque" | "Manutencao";
+
+export type MaterialRecord = {
+  id: string;
+  empresa: CompanyName;
+  material: string;
+  categoria: string;
+  unidade: string;
+  estoque: number;
+  estoqueMinimo: number;
+  utilizado: number;
+  local: string;
+  responsavel: string;
+  status: MaterialStatus;
+  observacoes: string;
+};
+
+export type MaterialMovementType = "Entrada" | "Saída";
+
+export type MaterialMovement = {
+  id: string;
+  empresa: CompanyName;
+  materialId: string;
+  material: string;
+  date: string;
+  quantity: number;
+  type: MaterialMovementType;
+  responsible: string;
+  source: string;
+  note: string;
+};
+
+export type WhatsAppMessageRecord = {
+  id: string;
+  empresa: CompanyName;
+  recebidoEm: string;
+  remetente: string;
+  mensagem: string;
+  sp: string;
+  cabo: string;
+  local: string;
+  status: ProductionStatus;
+  equipe: string;
+  materiais: string[];
+  confidence: number;
+  launchedConecta: boolean;
 };
 
 export type EmployeeStatus = "ATIVO" | "FERIAS" | "ATESTADO" | "AFASTADO" | "INATIVO";
@@ -98,5 +147,8 @@ export type ErpData = {
   production: ProductionRecord[];
   finance: FinanceEntry[];
   vr: VrRecord[];
+  materials: MaterialRecord[];
+  materialMovements: MaterialMovement[];
+  whatsappMessages: WhatsAppMessageRecord[];
   employees: Employee[];
 };

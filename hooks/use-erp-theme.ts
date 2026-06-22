@@ -1,18 +1,19 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useState } from "react";
 
 export type ErpTheme = {
   accent: string;
   fontScale: number;
+  mode: "dark" | "light";
 };
 
 const STORAGE_KEY = "fieldpro-theme-v1";
-const THEME_CHANGE_EVENT = "fieldpro-theme-change";
 
 export const defaultErpTheme: ErpTheme = {
   accent: "#f5b900",
   fontScale: 1,
+  mode: "dark",
 };
 
 export function useErpTheme() {
@@ -36,11 +37,11 @@ export function useErpTheme() {
     };
 
     window.addEventListener("storage", syncTheme);
-    window.addEventListener(THEME_CHANGE_EVENT, syncTheme);
+    window.addEventListener("fieldpro-theme-change", syncTheme);
 
     return () => {
       window.removeEventListener("storage", syncTheme);
-      window.removeEventListener(THEME_CHANGE_EVENT, syncTheme);
+      window.removeEventListener("fieldpro-theme-change", syncTheme);
     };
   }, []);
 
@@ -48,7 +49,7 @@ export function useErpTheme() {
     setThemeState(nextTheme);
     applyTheme(nextTheme);
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextTheme));
-    window.dispatchEvent(new CustomEvent(THEME_CHANGE_EVENT));
+    window.dispatchEvent(new CustomEvent("fieldpro-theme-change"));
   }, []);
 
   const resetTheme = useCallback(() => {
@@ -68,7 +69,8 @@ function readStoredTheme(): ErpTheme {
 }
 
 function applyTheme(theme: ErpTheme) {
+  document.documentElement.dataset.theme = theme.mode;
+  document.documentElement.classList.toggle("dark", theme.mode === "dark");
   document.documentElement.style.setProperty("--erp-accent", theme.accent);
   document.documentElement.style.setProperty("--erp-font-scale", String(theme.fontScale));
 }
-

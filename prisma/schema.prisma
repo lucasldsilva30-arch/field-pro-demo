@@ -19,6 +19,47 @@ model Empresa {
   @@index([nome])
 }
 
+model ChecklistRegistro {
+  id                String                  @id @default(cuid())
+  deliveryId        String                  @unique
+  companyId         String
+  employeeId        String?
+  employeeName      String
+  employeeFunction  String
+  employeeCargo     String
+  employeeSector    String
+  deliveryDate      String
+  nextDeadline      String
+  nextDate          String
+  rubric            String?
+  signatureDate     String
+  submittedAt       DateTime
+  inspectorName     String
+  signature         String
+  declarationAccept Boolean
+  pdfFileName       String
+  criadoEm          DateTime                @default(now())
+  atualizadoEm      DateTime                @updatedAt
+  items             ChecklistRegistroItem[]
+
+  @@index([companyId])
+  @@index([submittedAt])
+}
+
+model ChecklistRegistroItem {
+  id          String            @id @default(cuid())
+  itemId       String           @unique
+  checklistId  String
+  deliveryId   String
+  epiId        String
+  epiName      String
+  quantity     Int
+  checklist    ChecklistRegistro @relation(fields: [checklistId], references: [id], onDelete: Cascade)
+
+  @@index([checklistId])
+  @@index([deliveryId])
+}
+
 model DadoPlanilha {
   id           String   @id @default(cuid())
   nome         String

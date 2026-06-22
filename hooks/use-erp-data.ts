@@ -1,11 +1,23 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { COMPANY_STORAGE_KEY, DEFAULT_COMPANY, filterErpDataByCompany, isCompanyName } from "@/lib/companies";
 import { defaultErpData } from "@/lib/defaults";
-import type { CompanyName, ConectaCode, Employee, ErpData, FinanceEntry, ProductionRecord, VrRecord } from "@/lib/types";
+import { normalizeEmployee } from "@/lib/employees";
+import type {
+  CompanyName,
+  ConectaCode,
+  Employee,
+  ErpData,
+  FinanceEntry,
+  MaterialRecord,
+  MaterialMovement,
+  ProductionRecord,
+  VrRecord,
+  WhatsAppMessageRecord,
+} from "@/lib/types";
 
-const STORAGE_KEY = "fieldpro-erp-v5";
+const STORAGE_KEY = "fieldpro-demo-erp-v2";
 const COMPANY_CHANGE_EVENT = "fieldpro-company-change";
 
 export function useErpData() {
@@ -86,8 +98,58 @@ export function useErpData() {
     }));
   }, []);
 
+  const deleteFinanceEntry = useCallback((entryId: string) => {
+    setData((current) => ({
+      ...current,
+      finance: current.finance.filter((item) => item.id !== entryId),
+    }));
+  }, []);
+
   const addVrRecord = useCallback((record: VrRecord) => {
     setData((current) => ({ ...current, vr: [record, ...current.vr] }));
+  }, []);
+
+  const updateVrRecord = useCallback((record: VrRecord) => {
+    setData((current) => ({
+      ...current,
+      vr: current.vr.map((item) => (item.id === record.id ? record : item)),
+    }));
+  }, []);
+
+  const deleteVrRecord = useCallback((recordId: string) => {
+    setData((current) => ({
+      ...current,
+      vr: current.vr.filter((item) => item.id !== recordId),
+    }));
+  }, []);
+
+  const addMaterial = useCallback((material: MaterialRecord) => {
+    setData((current) => ({ ...current, materials: [material, ...current.materials] }));
+  }, []);
+
+  const updateMaterial = useCallback((material: MaterialRecord) => {
+    setData((current) => ({
+      ...current,
+      materials: current.materials.map((item) => (item.id === material.id ? material : item)),
+    }));
+  }, []);
+
+  const deleteMaterial = useCallback((materialId: string) => {
+    setData((current) => ({
+      ...current,
+      materials: current.materials.filter((item) => item.id !== materialId),
+    }));
+  }, []);
+
+  const addMaterialMovement = useCallback((movement: MaterialMovement) => {
+    setData((current) => ({
+      ...current,
+      materialMovements: [movement, ...current.materialMovements],
+    }));
+  }, []);
+
+  const addWhatsAppMessage = useCallback((message: WhatsAppMessageRecord) => {
+    setData((current) => ({ ...current, whatsappMessages: [message, ...current.whatsappMessages] }));
   }, []);
 
   const addEmployee = useCallback((employee: Employee) => {
@@ -98,6 +160,13 @@ export function useErpData() {
     setData((current) => ({
       ...current,
       employees: current.employees.map((item) => (item.id === employee.id ? employee : item)),
+    }));
+  }, []);
+
+  const deleteEmployee = useCallback((employeeId: string) => {
+    setData((current) => ({
+      ...current,
+      employees: current.employees.filter((item) => item.id !== employeeId),
     }));
   }, []);
 
@@ -112,9 +181,18 @@ export function useErpData() {
       addConectaCode,
       addFinanceEntry,
       updateFinanceEntry,
+      deleteFinanceEntry,
       addVrRecord,
+      updateVrRecord,
+      deleteVrRecord,
+      addMaterial,
+      addMaterialMovement,
+      updateMaterial,
+      deleteMaterial,
+      addWhatsAppMessage,
       addEmployee,
       updateEmployee,
+      deleteEmployee,
     }),
     [
       addConectaCode,
@@ -122,11 +200,20 @@ export function useErpData() {
       addFinanceEntry,
       addProduction,
       addVrRecord,
+      updateVrRecord,
+      deleteVrRecord,
+      addMaterial,
+      addMaterialMovement,
+      updateMaterial,
+      deleteMaterial,
+      addWhatsAppMessage,
+      deleteEmployee,
       data,
       empresaAtiva,
       setEmpresaAtiva,
       updateEmployee,
       updateFinanceEntry,
+      deleteFinanceEntry,
       updateProduction,
     ],
   );
@@ -141,10 +228,58 @@ function normalizeStoredData(data: ErpData): ErpData {
 
   return {
     ...mergedData,
-    production: mergedData.production.map((record) => ({ ...record, empresa: record.empresa ?? DEFAULT_COMPANY })),
-    finance: mergedData.finance.map((record) => ({ ...record, empresa: record.empresa ?? DEFAULT_COMPANY })),
-    vr: mergedData.vr.map((record) => ({ ...record, empresa: record.empresa ?? DEFAULT_COMPANY })),
-    employees: mergedData.employees.map((record) => ({ ...record, empresa: record.empresa ?? DEFAULT_COMPANY })),
+    production: mergedData.production.map((record) => ({
+      ...record,
+      empresa: record.empresa ?? "ALPHA TELECOM",
+      equipe: sanitizeText(record.equipe),
+      cabo: sanitizeText(record.cabo),
+      local: sanitizeText(record.local),
+      status: record.status,
+      materiais: record.materiais.map((item) => sanitizeText(item)).filter(Boolean),
+      rawMessage: sanitizeText(record.rawMessage),
+    })),
+    finance: mergedData.finance.map((record) => ({
+      ...record,
+      empresa: record.empresa ?? "ALPHA TELECOM",
+      description: sanitizeText(record.description),
+      type: sanitizeText(record.type),
+      category: sanitizeText(record.category),
+    })),
+    vr: mergedData.vr.map((record) => ({
+      ...record,
+      empresa: record.empresa ?? "ALPHA TELECOM",
+      funcionario: sanitizeText(record.funcionario),
+      equipe: sanitizeText(record.equipe),
+    })),
+    materials: mergedData.materials.map((record) => ({
+      ...record,
+      empresa: record.empresa ?? "ALPHA TELECOM",
+      material: sanitizeText(record.material),
+      categoria: sanitizeText(record.categoria),
+      local: sanitizeText(record.local),
+      responsavel: sanitizeText(record.responsavel),
+      observacoes: sanitizeText(record.observacoes),
+    })),
+    materialMovements: mergedData.materialMovements.map((record) => ({
+      ...record,
+      empresa: record.empresa ?? "ALPHA TELECOM",
+      material: sanitizeText(record.material),
+      responsible: sanitizeText(record.responsible),
+      source: sanitizeText(record.source),
+      note: sanitizeText(record.note),
+    })),
+    whatsappMessages: mergedData.whatsappMessages.map((record) => ({
+      ...record,
+      empresa: record.empresa ?? "ALPHA TELECOM",
+      remetente: sanitizeText(record.remetente),
+      mensagem: sanitizeText(record.mensagem),
+      sp: sanitizeText(record.sp),
+      cabo: sanitizeText(record.cabo),
+      local: sanitizeText(record.local),
+      equipe: sanitizeText(record.equipe),
+      materiais: record.materiais.map((item) => sanitizeText(item)).filter(Boolean),
+    })),
+    employees: mergedData.employees.map((record, index) => normalizeEmployee(record, index)),
   };
 }
 
@@ -155,6 +290,9 @@ function mergeWithDefaults(data: ErpData): ErpData {
     production: mergeById(defaultErpData.production, data.production),
     finance: mergeById(defaultErpData.finance, data.finance),
     vr: mergeById(defaultErpData.vr, data.vr),
+    materials: mergeById(defaultErpData.materials, data.materials),
+    materialMovements: mergeById(defaultErpData.materialMovements, data.materialMovements),
+    whatsappMessages: mergeById(defaultErpData.whatsappMessages, data.whatsappMessages),
     employees: mergeById(defaultErpData.employees, data.employees),
   };
 }
@@ -164,3 +302,23 @@ function mergeById<T extends { id: string }>(defaults: T[], stored: T[]) {
   return [...stored, ...defaults.filter((item) => !storedIds.has(item.id))];
 }
 
+function sanitizeText(value: string | undefined) {
+  return String(value ?? "")
+    .replaceAll("ÃƒÂ§", "ç")
+    .replaceAll("ÃƒÂ£", "ã")
+    .replaceAll("ÃƒÂ¡", "á")
+    .replaceAll("ÃƒÂ¢", "â")
+    .replaceAll("ÃƒÂ©", "é")
+    .replaceAll("ÃƒÂª", "ê")
+    .replaceAll("ÃƒÂ­", "í")
+    .replaceAll("ÃƒÂ³", "ó")
+    .replaceAll("ÃƒÂ´", "ô")
+    .replaceAll("ÃƒÂº", "ú")
+    .replaceAll("ÃƒO", "ÃO")
+    .replaceAll("Ãƒo", "ão")
+    .replaceAll("NÃƒO", "NÃO")
+    .replaceAll("SÃƒO", "SÃO")
+    .replaceAll("GIRÃƒO", "GIRÃO")
+    .replaceAll("TABOÃƒO", "TABOÃO")
+    .trim();
+}

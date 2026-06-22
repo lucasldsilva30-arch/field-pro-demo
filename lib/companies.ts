@@ -22,6 +22,9 @@ export function filterErpDataByCompany(data: ErpData, empresa: CompanyName): Erp
     production: data.production.filter((record) => getRecordCompany(record) === empresa),
     finance: data.finance.filter((record) => getRecordCompany(record) === empresa),
     vr: data.vr.filter((record) => getRecordCompany(record) === empresa),
+    materials: data.materials.filter((record) => getRecordCompany(record) === empresa),
+    materialMovements: data.materialMovements.filter((record) => getRecordCompany(record) === empresa),
+    whatsappMessages: data.whatsappMessages.filter((record) => getRecordCompany(record) === empresa),
     employees: data.employees.filter((record) => getRecordCompany(record) === empresa),
   };
 }

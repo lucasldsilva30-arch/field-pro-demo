@@ -47,7 +47,7 @@ export function calcularResumoERP(data: ErpData) {
   const productionDay = data.production.filter((item) => item.date === today);
   const productionMonth = data.production.filter((item) => item.date.startsWith(currentMonth));
   const entradas = data.finance.filter((entry) => entry.type === "Entrada");
-  const saidas = data.finance.filter((entry) => entry.type === "Saída");
+  const saidas = data.finance.filter((entry) => entry.type.toLowerCase().includes("sa"));
   const despesas = sum(saidas.map((entry) => entry.amount));
   const aPagar = sum(saidas.filter((entry) => !entry.paid).map((entry) => entry.amount));
   const saldo = calcularSaldo(
@@ -76,7 +76,7 @@ export function calcularResumoERP(data: ErpData) {
 
 export function calculateFinanceTotals(entries: FinanceEntry[]) {
   const entradas = entries.filter((entry) => entry.type === "Entrada");
-  const saidas = entries.filter((entry) => entry.type === "Saída");
+  const saidas = entries.filter((entry) => entry.type.toLowerCase().includes("sa"));
   const totalEntradas = sum(entradas.map((entry) => entry.amount));
   const totalSaidas = sum(saidas.map((entry) => entry.amount));
   const totalPago = sum(saidas.filter((entry) => entry.paid).map((entry) => entry.amount));
@@ -87,7 +87,9 @@ export function calculateFinanceTotals(entries: FinanceEntry[]) {
     totalSaidas,
     totalPago,
     totalAPagar,
-    saldoAtual: calcularSaldo(entradas.map((entry) => entry.amount), [totalPago]),
+    // Saldo Atual: total de entradas menos o total de saídas (corrigido)
+    saldoAtual: calcularSaldo(entradas.map((entry) => entry.amount), saidas.map((entry) => entry.amount)),
+    // Saldo Previsto: mesmo cálculo incluindo previsões já presente nas saídas
     saldoPrevisto: calcularSaldo(entradas.map((entry) => entry.amount), saidas.map((entry) => entry.amount)),
   };
 }

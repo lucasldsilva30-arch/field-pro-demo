@@ -5,7 +5,12 @@ export const EMPLOYEE_SHEET_ID = "demo";
 export const EMPLOYEE_SHEET_GID = "0";
 export const EMPLOYEE_SHEET_NAME = "BASE_DEMO_FUNCIONARIOS";
 
-export const employeeSheetSources = [] as const;
+export const employeeSheetSources: ReadonlyArray<{
+  label: string;
+  spreadsheetId: string;
+  gid: string;
+  empresa?: CompanyName;
+}> = [];
 
 export const employeeColumns = [
   { key: "re", label: "RE" },
@@ -90,7 +95,7 @@ function normalizeCentralEmployeeRow(row: string[], index: number): Employee {
     return normalizeEmployee({ ...mapCadastroFuncionariosRow(columns), empresa }, index);
   }
 
-  if (clean(row[0]).toUpperCase() === "GAMMA") {
+  if (clean(row[0]).toUpperCase() === "OPERADORA") {
     return normalizeTimCentralRow(columns, index, "GAMMA TELECOM");
   }
 
@@ -124,14 +129,14 @@ function normalizeTimCentralRow(row: string[], index: number, empresa: CompanyNa
   return normalizeEmployee(
     {
       empresa,
-      id: `tim-${clean(row[0]) || index + 1}`,
+      id: `operadora-${clean(row[0]) || index + 1}`,
       re: clean(row[0]) || String(index + 1),
       situacao: "ATIVO",
       funcionario: row[3],
       cargo: row[4],
       seguimento: row[2],
-      equipe: row[2] || row[12] || "GAMMA",
-      projeto: "GAMMA",
+      equipe: row[2] || row[12] || "OPERADORA",
+      projeto: "OPERADORA",
       carro: row[8],
       placa: row[7],
       admissao: row[5],
@@ -150,14 +155,14 @@ function normalizeTimEmployeeRow(row: string[], index: number, empresa: CompanyN
   return normalizeEmployee(
     {
       empresa,
-      id: `tim-${clean(row[4]) || clean(row[9]) || index + 1}`,
+      id: `operadora-${clean(row[4]) || clean(row[9]) || index + 1}`,
       re: row[4] || String(index + 1),
       situacao: "ATIVO",
       funcionario: row[5],
       cargo: row[6],
       seguimento: row[3],
-      equipe: row[7] || "GAMMA",
-      projeto: "GAMMA",
+      equipe: row[7] || "OPERADORA",
+      projeto: "OPERADORA",
       carro: row[14],
       placa: row[13],
       admissao: row[1],
@@ -314,8 +319,12 @@ function normalizeStatus(value?: string): EmployeeStatus {
 function normalizeCompany(value?: string): CompanyName {
   const company = clean(value).toUpperCase();
 
-  if (company === "GAMMA TELECOM" || company === "ALPHA TELECOM" || company === "BETA TELECOM") {
+  if (company === "ALPHA TELECOM" || company === "BETA TELECOM" || company === "GAMMA TELECOM") {
     return company;
+  }
+
+  if (company === "OPERADORA") {
+    return "GAMMA TELECOM";
   }
 
   return DEFAULT_COMPANY;
@@ -334,21 +343,21 @@ function normalizeHeader(value?: string) {
 
 function fixEncoding(value: string) {
   return value
-    .replaceAll("ÃƒÆ’O", "ÃƒO")
-    .replaceAll("ÃƒÆ’o", "Ã£o")
-    .replaceAll("ÃƒÆ’A", "Ãƒ")
-    .replaceAll("ÃƒÆ’a", "Ã£")
-    .replaceAll("ÃƒÆ’", "Ãƒ")
-    .replaceAll("ÃƒÂ§", "Ã§")
-    .replaceAll("ÃƒÂ£", "Ã£")
-    .replaceAll("ÃƒÂ¡", "Ã¡")
-    .replaceAll("ÃƒÂ¢", "Ã¢")
-    .replaceAll("ÃƒÂ©", "Ã©")
-    .replaceAll("ÃƒÂª", "Ãª")
-    .replaceAll("ÃƒÂ­", "Ã­")
-    .replaceAll("ÃƒÂ³", "Ã³")
-    .replaceAll("ÃƒÂ´", "Ã´")
-    .replaceAll("ÃƒÂº", "Ãº")
-    .replaceAll("NÃƒO", "NÃƒO");
+    .replaceAll("ÃƒÂ§", "ç")
+    .replaceAll("ÃƒÂ£", "ã")
+    .replaceAll("ÃƒÂ¡", "á")
+    .replaceAll("ÃƒÂ¢", "â")
+    .replaceAll("ÃƒÂ©", "é")
+    .replaceAll("ÃƒÂª", "ê")
+    .replaceAll("ÃƒÂ­", "í")
+    .replaceAll("ÃƒÂ³", "ó")
+    .replaceAll("ÃƒÂ´", "ô")
+    .replaceAll("ÃƒÂº", "ú")
+    .replaceAll("ÃƒO", "ÃO")
+    .replaceAll("Ãƒo", "ão")
+    .replaceAll("NÃƒO", "NÃO")
+    .replaceAll("SÃƒO", "SÃO")
+    .replaceAll("GIRÃƒO", "GIRÃO")
+    .replaceAll("TABOÃƒO", "TABOÃO");
 }
 

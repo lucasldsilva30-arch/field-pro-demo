@@ -5,5 +5,8 @@ export const defaultErpData: ErpData = {
   production: [],
   finance: [],
   vr: [],
+  materials: [],
+  materialMovements: [],
+  whatsappMessages: [],
   employees: [],
 };
