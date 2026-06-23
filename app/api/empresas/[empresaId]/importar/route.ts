@@ -39,16 +39,6 @@ export async function GET(_req: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: "Empresa não encontrada." }, { status: 400 });
     }
 
-    const dados = empresa.dados as Array<{
-      id: string;
-      nome: string;
-      telefone: string | null;
-      plano: string | null;
-      status: string | null;
-      criadoEm: Date;
-      dadosOriginais: unknown;
-    }>;
-
     return NextResponse.json({
       empresa: {
         id: empresa.id,
@@ -56,7 +46,7 @@ export async function GET(_req: NextRequest, context: RouteContext) {
         cnpj: empresa.cnpj,
         status: empresa.status,
       },
-      dados: dados.map((item) => ({
+      dados: empresa.dados.map((item) => ({
         id: item.id,
         nome: item.nome,
         telefone: item.telefone,
@@ -125,7 +115,7 @@ export async function POST(req: NextRequest, context: RouteContext) {
       Cada linha recebe automaticamente esse empresaId, então nenhum dado importado pode cair em outra empresa.
     */
     const result = await prisma.dadoPlanilha.createMany({
-      data: data as Prisma.DadoPlanilhaCreateManyInput[],
+      data,
       skipDuplicates: false,
     });
 
@@ -157,10 +147,10 @@ function optionalText(value: unknown) {
   return text || null;
 }
 
-function toPrismaJson(row: SpreadsheetRow) {
-  return JSON.parse(JSON.stringify(row)) as Record<string, unknown>;
+function toPrismaJson(row: SpreadsheetRow): Prisma.InputJsonValue {
+  return JSON.parse(JSON.stringify(row)) as Prisma.InputJsonValue;
 }
 
-function isPlainObject(value: unknown): value is Record<string, unknown> {
+function isPlainObject(value: Prisma.JsonValue): value is Record<string, Prisma.JsonValue> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }

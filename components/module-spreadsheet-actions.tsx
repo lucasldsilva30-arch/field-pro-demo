@@ -8,7 +8,7 @@ export type SpreadsheetRow = Record<string, unknown>;
 
 type ModuleSpreadsheetActionsProps<T extends SpreadsheetRow> = {
   empresa: CompanyName;
-  moduleKey: "dashboard" | "indicadores" | "funcionarios" | "operacao" | "financeiro";
+  moduleKey: "dashboard" | "indicadores" | "funcionarios" | "operacao" | "financeiro" | "vr" | "materiais" | "whatsapp";
   moduleLabel: string;
   description?: string;
   rows: T[];

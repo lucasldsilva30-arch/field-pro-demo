@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getCurrentPassword } from "@/lib/server-password";
 
 export const runtime = "nodejs";
@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   const expectedPassword = getCurrentPassword();
 
   if (password !== expectedPassword) {
-    return NextResponse.json({ error: "Senha invÃ¡lida." }, { status: 401 });
+    return NextResponse.json({ error: "Senha inválida." }, { status: 401 });
   }
 
   const response = NextResponse.json({ success: true });
@@ -22,4 +22,3 @@ export async function POST(req: NextRequest) {
 
   return response;
 }
-
