@@ -429,6 +429,7 @@ function ProductionStatCard({
       className={`rounded-xl border p-4 text-left transition hover:-translate-y-0.5 hover:border-yellow-500/60 sm:p-5 ${
         active ? "ring-2 ring-yellow-500/50" : ""
       } border-white/10 bg-zinc-950`}
+      data-demo-nav="true"
       onClick={onClick}
       type="button"
     >

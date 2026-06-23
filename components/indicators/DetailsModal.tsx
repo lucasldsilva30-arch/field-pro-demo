@@ -30,7 +30,12 @@ export function DetailsModal({ data, onClose }: DetailsModalProps) {
       <div className="max-h-[80vh] w-full max-w-2xl overflow-auto rounded-2xl border border-yellow-950/70 bg-zinc-950 p-6">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-white">{getTitle()}</h2>
-          <button onClick={onClose} className="text-slate-400 transition hover:text-white" aria-label="Fechar">
+          <button
+            onClick={onClose}
+            className="text-slate-400 transition hover:text-white"
+            aria-label="Fechar"
+            data-demo-nav="true"
+          >
             ×
           </button>
         </div>
@@ -88,7 +93,11 @@ export function DetailsModal({ data, onClose }: DetailsModalProps) {
           </div>
         </div>
 
-        <button onClick={onClose} className="mt-6 w-full rounded-xl bg-yellow-500 px-4 py-2 font-bold text-black transition hover:bg-yellow-400">
+        <button
+          onClick={onClose}
+          className="mt-6 w-full rounded-xl bg-yellow-500 px-4 py-2 font-bold text-black transition hover:bg-yellow-400"
+          data-demo-nav="true"
+        >
           Fechar
         </button>
       </div>

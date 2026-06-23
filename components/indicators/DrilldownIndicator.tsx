@@ -29,6 +29,7 @@ export function DrilldownIndicator({
   return (
     <button
       onClick={() => onDrilldown({ type, records, total: current ?? 0, monthPrevious })}
+      data-demo-nav="true"
       className="rounded-2xl border border-yellow-950/60 bg-zinc-950 p-4 text-left transition hover:border-yellow-500/40 hover:bg-zinc-900"
     >
       <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">{label}</p>

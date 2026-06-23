@@ -300,6 +300,7 @@ function MetricButton({
             ? "border-slate-200 bg-white shadow-[0_10px_25px_rgba(15,23,42,0.06)]"
             : "border-white/10 bg-[#050505] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
       }`}
+      data-demo-nav="true"
       onClick={onClick}
       type="button"
     >

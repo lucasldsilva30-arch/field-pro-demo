@@ -127,6 +127,7 @@ export default function PreviaFinanceiraPage() {
               <button
                 className="inline-flex items-center justify-center rounded-xl border border-yellow-500/30 bg-yellow-500/10 px-4 py-2 text-sm font-bold text-yellow-300 transition hover:bg-yellow-500/15"
                 onClick={() => setShowCostDetails(true)}
+                data-demo-nav="true"
                 type="button"
               >
                 Abrir Financeiro
@@ -384,6 +385,7 @@ function CostDetailsModal({
           <button
             className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-sm font-bold text-slate-200 transition hover:bg-white/[0.06]"
             onClick={onClose}
+            data-demo-nav="true"
             type="button"
           >
             Fechar

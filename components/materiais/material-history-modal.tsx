@@ -24,7 +24,12 @@ export function MaterialHistoryModal({ material, history, onClose }: MaterialHis
                 {material.categoria} • estoque atual {material.estoque} • mínimo {material.estoqueMinimo}
               </p>
             </div>
-            <button className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-slate-300" onClick={onClose} type="button">
+            <button
+              className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-slate-300"
+              data-demo-nav="true"
+              onClick={onClose}
+              type="button"
+            >
               Fechar
             </button>
           </div>

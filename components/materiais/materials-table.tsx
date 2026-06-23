@@ -74,7 +74,7 @@ export function MaterialsTable({ materials, onDelete, onEdit, onView }: Material
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
-                      <IconButton label="Visualizar" tone="view" onClick={() => onView(material)} />
+                      <IconButton dataDemoNav label="Visualizar" tone="view" onClick={() => onView(material)} />
                       <IconButton label="Editar" tone="edit" onClick={() => onEdit(material)} />
                       <IconButton label="Excluir" tone="delete" onClick={() => onDelete(material.id)} />
                     </div>
@@ -103,10 +103,12 @@ function StatusBadge({ status }: { status: MaterialStatus }) {
 function IconButton({
   label,
   tone,
+  dataDemoNav,
   onClick,
 }: {
   label: string;
   tone: "view" | "edit" | "delete";
+  dataDemoNav?: boolean;
   onClick: () => void;
 }) {
   const styles = {
@@ -122,7 +124,13 @@ function IconButton({
   };
 
   return (
-    <button className={`grid size-9 place-items-center rounded-lg transition hover:bg-white/10 ${styles[tone]}`} onClick={onClick} title={label} type="button">
+    <button
+      className={`grid size-9 place-items-center rounded-lg transition hover:bg-white/10 ${styles[tone]}`}
+      data-demo-nav={dataDemoNav ? "true" : undefined}
+      onClick={onClick}
+      title={label}
+      type="button"
+    >
       {icons[tone]}
     </button>
   );

@@ -304,6 +304,7 @@ export default function FinanceiroPage() {
                 className={`rounded-xl px-4 py-2 text-sm font-bold transition ${
                   mode === "novo" ? "bg-yellow-500 text-black" : "border border-white/10 bg-white/5 text-slate-200"
                 }`}
+                data-demo-nav="true"
                 onClick={() => {
                   setMode("novo");
                   setEditingEntry(null);
@@ -317,6 +318,7 @@ export default function FinanceiroPage() {
                 className={`rounded-xl px-4 py-2 text-sm font-bold transition ${
                   mode === "editar" ? "bg-yellow-500 text-black" : "border border-white/10 bg-white/5 text-slate-200"
                 }`}
+                data-demo-nav="true"
                 onClick={() => setMode("editar")}
                 type="button"
               >
@@ -659,6 +661,7 @@ function InteractiveMetricCard({
       className={`relative rounded-xl border p-6 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] transition hover:-translate-y-0.5 hover:border-yellow-500/60 ${
         active ? "ring-2 ring-yellow-500/50" : ""
       } ${alertStyles}`}
+      data-demo-nav="true"
       onClick={onClick}
       type="button"
     >

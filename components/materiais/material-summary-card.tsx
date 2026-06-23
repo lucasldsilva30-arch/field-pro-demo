@@ -27,6 +27,7 @@ export function MaterialSummaryCard({ active, helper, label, onClick, tone, valu
   return (
     <button
       data-material-summary-card
+      data-demo-nav="true"
       className={`rounded-2xl border p-5 text-left transition hover:-translate-y-0.5 hover:border-yellow-500/60 ${
         active ? "ring-2 ring-yellow-500/50" : "border-white/10 bg-black"
       } ${toneStyles[tone]}`}

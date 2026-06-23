@@ -45,6 +45,7 @@ export function StatusOperationalChart({ records, onFilterStatus, selectedStatus
         <div className="flex gap-2">
           <button
             onClick={() => setChartType('pie')}
+            data-demo-nav="true"
             className={`px-3 py-1.5 rounded text-xs font-semibold transition ${
               chartType === 'pie'
                 ? 'bg-yellow-500 text-black'
@@ -55,6 +56,7 @@ export function StatusOperationalChart({ records, onFilterStatus, selectedStatus
           </button>
           <button
             onClick={() => setChartType('bar')}
+            data-demo-nav="true"
             className={`px-3 py-1.5 rounded text-xs font-semibold transition ${
               chartType === 'bar'
                 ? 'bg-yellow-500 text-black'
@@ -133,6 +135,7 @@ export function StatusOperationalChart({ records, onFilterStatus, selectedStatus
               <button
                 key={status.name}
                 onClick={() => handleStatusClick(status.name)}
+                data-demo-nav="true"
                 className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
                   selectedStatus === status.name
                     ? 'border-yellow-400 bg-yellow-500/20 text-yellow-300'
@@ -148,6 +151,7 @@ export function StatusOperationalChart({ records, onFilterStatus, selectedStatus
           {selectedStatus && (
             <button
               onClick={() => onFilterStatus(null)}
+              data-demo-nav="true"
               className="mt-4 w-full rounded-lg border border-yellow-500/30 bg-yellow-500/10 px-3 py-2 text-sm font-semibold text-yellow-300 transition hover:bg-yellow-500/20"
             >
               Limpar filtro

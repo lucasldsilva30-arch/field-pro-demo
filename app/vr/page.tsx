@@ -341,6 +341,7 @@ export default function VrPage() {
                       ? "border-yellow-500 bg-yellow-500 text-black"
                       : "border-white/10 bg-black text-slate-300 hover:border-yellow-500/50 hover:text-yellow-300"
                   }`}
+                  data-demo-nav="true"
                   key={item.key}
                   onClick={() => setFocus(item.key as typeof focus)}
                   type="button"
@@ -432,6 +433,7 @@ function VrSummaryCard({
       className={`rounded-xl border p-5 text-left transition hover:-translate-y-0.5 hover:border-yellow-500/60 ${
         active ? "ring-2 ring-yellow-500/50" : ""
       } ${tone === "positive" ? "border-emerald-500/20 bg-emerald-500/10" : "border-yellow-950/70 bg-zinc-950"}`}
+      data-demo-nav="true"
       onClick={onClick}
       type="button"
     >

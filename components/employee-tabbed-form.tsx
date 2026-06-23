@@ -106,6 +106,7 @@ export function EmployeeTabbedForm({
                   ? "border-yellow-500 bg-yellow-500/10 text-yellow-200"
                   : "border-white/10 bg-black text-slate-300 hover:border-yellow-500/40 hover:bg-yellow-500/5 hover:text-yellow-200"
               }`}
+              data-demo-nav="true"
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               type="button"
