@@ -10,6 +10,10 @@ export function DemoReadonlyGuard() {
     const disableFocus = () => {
       document.querySelectorAll<HTMLElement>(blockedSelector).forEach((element) => {
         if (element.matches(allowedSelector) || element.closest(allowedSelector)) {
+          element.removeAttribute("aria-disabled");
+          if (element.tabIndex < 0) {
+            element.tabIndex = 0;
+          }
           return;
         }
 

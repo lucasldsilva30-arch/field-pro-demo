@@ -54,6 +54,11 @@ body[data-demo-readonly] :is(input, textarea, select, [contenteditable="true"]) 
   pointer-events: none !important;
 }
 
+body[data-demo-readonly] :is(a[href], [data-demo-nav="true"], [data-demo-allow="true"]) {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
 html,
 body {
   min-width: 320px;
