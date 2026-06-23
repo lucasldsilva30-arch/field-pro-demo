@@ -49,6 +49,11 @@ html[data-theme="light"] {
   box-sizing: border-box;
 }
 
+body[data-demo-readonly] :is(a, button, input, textarea, select, [role="button"], [contenteditable="true"]) {
+  cursor: default !important;
+  pointer-events: none !important;
+}
+
 html,
 body {
   min-width: 320px;

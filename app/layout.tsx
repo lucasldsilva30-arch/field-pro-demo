@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { DemoReadonlyGuard } from "@/components/demo-readonly-guard";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -41,7 +42,8 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
-      <body suppressHydrationWarning>
+      <body data-demo-readonly suppressHydrationWarning>
+        <DemoReadonlyGuard />
         <Script id="fieldpro-theme-bootstrap" strategy="beforeInteractive">{`
           (function () {
             try {
