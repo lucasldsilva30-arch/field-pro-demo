@@ -357,6 +357,7 @@ export default function FuncionariosPage() {
                       ? "border-yellow-500 bg-yellow-500 text-black"
                       : "border-white/10 bg-black text-slate-300 hover:border-yellow-500/50 hover:text-yellow-300"
                   }`}
+                  data-demo-nav="true"
                   key={status}
                   onClick={() => setStatusFilter(status)}
                   type="button"
@@ -421,7 +422,7 @@ export default function FuncionariosPage() {
                       <td className="px-4 py-4 text-slate-300">{formatDateBr(employee.admissao || employee.dataAdmissao) || "-"}</td>
                       <td className="px-4 py-4">
                         <div className="flex justify-end gap-2">
-                          <ActionButton isLight={isLight} label="Ver" onClick={() => setViewEmployee(employee)} tone="view" />
+                          <ActionButton dataDemoNav isLight={isLight} label="Ver" onClick={() => setViewEmployee(employee)} tone="view" />
                           <ActionButton isLight={isLight} label="Editar" onClick={() => setEditingEmployee(employee)} tone="edit" />
                           <button
                             className={`grid size-9 place-items-center rounded-lg border transition ${
@@ -576,11 +577,13 @@ function StatusBadge({ status }: { status: EmployeeStatus }) {
 function ActionButton({
   isLight,
   label,
+  dataDemoNav,
   onClick,
   tone,
 }: {
   isLight: boolean;
   label: string;
+  dataDemoNav?: boolean;
   onClick: () => void;
   tone: "view" | "edit";
 }) {
@@ -594,7 +597,13 @@ function ActionButton({
         : "border border-yellow-500/15 bg-yellow-500/10 text-yellow-300 hover:border-yellow-500/30 hover:bg-yellow-500/20";
 
   return (
-    <button className={`grid size-9 place-items-center rounded-lg transition ${styles}`} onClick={onClick} title={label} type="button">
+    <button
+      className={`grid size-9 place-items-center rounded-lg transition ${styles}`}
+      data-demo-nav={dataDemoNav ? "true" : undefined}
+      onClick={onClick}
+      title={label}
+      type="button"
+    >
       <ActionIcon isLight={isLight} tone={tone} />
     </button>
   );
@@ -810,7 +819,14 @@ function Modal({ title, children, onClose }: { title: string; children: ReactNod
       <section className="max-h-[90vh] w-full max-w-3xl overflow-auto rounded-3xl border border-white/10 bg-zinc-950 p-6 shadow-2xl shadow-black">
         <div className="mb-5 flex items-center justify-between gap-4">
           <h2 className="text-xl font-black text-white">{title}</h2>
-          <button className="grid size-9 place-items-center rounded-xl bg-white/10 text-white" onClick={onClose} type="button">×</button>
+          <button
+            className="grid size-9 place-items-center rounded-xl bg-white/10 text-white"
+            data-demo-nav="true"
+            onClick={onClose}
+            type="button"
+          >
+            ×
+          </button>
         </div>
         {children}
       </section>
