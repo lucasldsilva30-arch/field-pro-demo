@@ -49,7 +49,7 @@ html[data-theme="light"] {
   box-sizing: border-box;
 }
 
-body[data-demo-readonly] :is(a, button, input, textarea, select, [role="button"], [contenteditable="true"]) {
+body[data-demo-readonly] :is(input, textarea, select, [contenteditable="true"]) {
   cursor: default !important;
   pointer-events: none !important;
 }

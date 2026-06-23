@@ -108,6 +108,7 @@ export function ErpShell({ active, children }: ErpShellProps) {
                 className="inline-flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white transition hover:bg-white/[0.06] lg:hidden"
                 aria-label="Abrir menu"
                 type="button"
+                data-demo-nav="true"
                 onClick={() => setMobileMenuOpen(true)}
               >
                 <MenuIcon name="menu" />
@@ -167,6 +168,7 @@ export function ErpShell({ active, children }: ErpShellProps) {
               className="inline-flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white transition hover:bg-white/[0.06]"
               aria-label="Fechar menu"
               type="button"
+              data-demo-nav="true"
               onClick={() => setMobileMenuOpen(false)}
             >
               <MenuIcon name="close" />

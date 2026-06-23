@@ -2,12 +2,17 @@
 
 import { useEffect } from "react";
 
-const interactiveSelector = "a, button, input, textarea, select, [role='button'], [contenteditable='true']";
+const blockedSelector = "button, input, textarea, select, [role='button'], [contenteditable='true']";
+const allowedSelector = "[data-demo-nav='true'], [data-demo-allow='true'], a[href]";
 
 export function DemoReadonlyGuard() {
   useEffect(() => {
     const disableFocus = () => {
-      document.querySelectorAll<HTMLElement>(interactiveSelector).forEach((element) => {
+      document.querySelectorAll<HTMLElement>(blockedSelector).forEach((element) => {
+        if (element.matches(allowedSelector) || element.closest(allowedSelector)) {
+          return;
+        }
+
         element.tabIndex = -1;
         element.setAttribute("aria-disabled", "true");
 
@@ -18,8 +23,30 @@ export function DemoReadonlyGuard() {
     };
 
     const blockInteraction = (event: Event) => {
-      event.preventDefault();
-      event.stopImmediatePropagation();
+      if (!(event.target instanceof Element)) {
+        return;
+      }
+
+      const target = event.target.closest(allowedSelector);
+
+      if (target) {
+        return;
+      }
+
+      const interactiveElement = event.target.closest(blockedSelector);
+
+      if (interactiveElement) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
+
+      const labelElement = event.target.closest("label");
+
+      if (labelElement && !labelElement.matches(allowedSelector) && !labelElement.closest(allowedSelector)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
     };
 
     const blockKeyboardInteraction = (event: KeyboardEvent) => {

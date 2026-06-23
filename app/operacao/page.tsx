@@ -185,6 +185,7 @@ export default function OperacaoPage() {
                       ? "border-yellow-500 bg-yellow-500 text-black"
                       : "border-white/10 bg-zinc-950 text-slate-300 hover:border-yellow-500/50 hover:text-yellow-300"
                   }`}
+                  data-demo-nav="true"
                   onClick={() => setActiveTab(tab.key)}
                   type="button"
                 >
