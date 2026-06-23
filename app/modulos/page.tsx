@@ -93,6 +93,7 @@ export default function ModulosPage() {
             <Link
               className={`group rounded-3xl border bg-zinc-950 p-5 transition hover:-translate-y-1 hover:bg-white/[0.03] ${module.color}`}
               href={module.href}
+              data-demo-nav="true"
               key={module.href}
             >
               <div className="flex items-start justify-between gap-3">

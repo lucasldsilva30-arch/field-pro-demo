@@ -122,6 +122,7 @@ export default function EmpresaDadosPage() {
           <Link
             className="rounded-xl border border-white/10 px-4 py-3 text-sm font-bold text-slate-200 transition hover:border-yellow-500/50 hover:bg-yellow-500/10 hover:text-yellow-300"
             href="/dashboard"
+            data-demo-nav="true"
           >
             Voltar ao dashboard
           </Link>

@@ -442,6 +442,7 @@ function CostDetailsModal({
               <Link
                 className="mt-4 inline-flex rounded-xl border border-yellow-500/30 bg-yellow-500/10 px-4 py-2 text-sm font-bold text-yellow-300 transition hover:bg-yellow-500/15"
                 href="/financeiro"
+                data-demo-nav="true"
               >
                 Ir para Financeiro
               </Link>

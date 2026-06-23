@@ -89,7 +89,7 @@ export function ErpShell({ active, children }: ErpShellProps) {
             <nav className="flex flex-1 flex-col gap-1 px-3 py-4">
               <CompanySelector empresaAtiva={empresaAtiva} onChange={setEmpresaAtiva} />
 
-              {navigation.map((item) => (
+            {navigation.map((item) => (
                 <NavLink active={active === item.key} badge={badges[item.key as NavigationKey]} href={item.href} icon={item.icon} key={item.key} label={item.label} />
               ))}
 
@@ -104,7 +104,7 @@ export function ErpShell({ active, children }: ErpShellProps) {
         <section className="min-w-0 flex-1">
           <header className="sticky top-0 z-30 flex min-h-16 items-center justify-between gap-3 border-b border-white/10 bg-black/90 px-4 py-3 backdrop-blur-xl lg:px-6">
             <div className="flex min-w-0 items-center gap-3">
-              <button
+            <button
                 className="inline-flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white transition hover:bg-white/[0.06] lg:hidden"
                 aria-label="Abrir menu"
                 type="button"
@@ -138,7 +138,7 @@ export function ErpShell({ active, children }: ErpShellProps) {
           <div className="px-3 py-4 sm:px-4 sm:py-6 lg:px-6">{children}</div>
 
           <footer className="border-t border-white/10 px-4 py-4 text-center text-[11px] text-slate-600 sm:px-6 lg:px-8 dark:text-slate-500">
-            <Link className="erp-footer-link transition hover:text-yellow-300" href="/privacidade">
+              <Link className="erp-footer-link transition hover:text-yellow-300" data-demo-nav="true" href="/privacidade">
               Termos de Privacidade
             </Link>
           </footer>
@@ -193,6 +193,7 @@ export function ErpShell({ active, children }: ErpShellProps) {
                 }`}
                 href={item.href}
                 key={item.key}
+                data-demo-nav="true"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="flex items-center gap-3">
@@ -256,6 +257,7 @@ function NavLink({
           ? "border border-white/10 bg-white/[0.03] text-white"
           : "border border-transparent bg-transparent text-white hover:border-white/10 hover:bg-white/[0.03]"
       }`}
+      data-demo-nav="true"
       href={href}
     >
       <span className="flex items-center gap-3">

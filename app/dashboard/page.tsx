@@ -88,6 +88,7 @@ export default function DashboardPage() {
               ? "border border-slate-200 bg-white hover:border-yellow-400/60 hover:bg-amber-50"
               : "border border-white/10 bg-black hover:border-yellow-500/40 hover:bg-yellow-500/5"
           }`}
+          data-demo-nav="true"
           href="/previa-financeira"
         >
           <div className={`grid size-14 shrink-0 place-items-center rounded-2xl border ${isLight ? "border-amber-200 bg-amber-50 text-amber-600" : "border-white/10 bg-white/[0.03] text-yellow-300"}`}>
@@ -246,6 +247,7 @@ function AlertCenter({ alerts, isLight }: { alerts: AlertItem[]; isLight: boolea
         {alerts.map((alert) => (
           <Link
             className={`rounded-2xl border p-4 transition hover:-translate-y-0.5 ${alertToneClass(alert.tone)}`}
+            data-demo-nav="true"
             href={alert.href}
             key={alert.title}
           >
@@ -345,7 +347,7 @@ function MetricIcon({ name }: { name: MetricIconName }) {
 
 function AccessCard({ href, icon, title, description, badge, isLight }: QuickItem & { isLight: boolean }) {
   return (
-    <Link className={`group rounded-2xl border p-5 transition hover:-translate-y-0.5 ${isLight ? "border-slate-200 bg-white hover:border-yellow-400/50 hover:bg-amber-50" : "border-white/10 bg-[#050505] hover:border-yellow-500/40 hover:bg-yellow-500/8"}`} href={href}>
+    <Link className={`group rounded-2xl border p-5 transition hover:-translate-y-0.5 ${isLight ? "border-slate-200 bg-white hover:border-yellow-400/50 hover:bg-amber-50" : "border-white/10 bg-[#050505] hover:border-yellow-500/40 hover:bg-yellow-500/8"}`} data-demo-nav="true" href={href}>
       <div className="flex items-start justify-between gap-4">
         <div className={`grid size-12 place-items-center rounded-xl border ${isLight ? "border-amber-200 bg-amber-50 text-amber-600" : "border-white/10 bg-white/[0.03] text-yellow-300"}`}>
           <QuickIcon name={icon} />
