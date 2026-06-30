@@ -557,7 +557,6 @@ function buildCompanyRows(data: ErpData): CompanyRow[] {
     const resumo = calcularResumoERP(companyData);
     const productionPoints = resumo.productionMonth.reduce((sum, record) => sum + record.points, 0);
     const financePending = companyData.finance.filter((entry) => entry.type.toLowerCase().includes("sa") && !entry.paid).length;
-    const whatsappPending = companyData.whatsappMessages.filter((message) => !message.launchedConecta || message.confidence < 0.75).length;
 
     return {
       name: company,
@@ -565,7 +564,7 @@ function buildCompanyRows(data: ErpData): CompanyRow[] {
       faturamento: resumo.faturamentoEstimado,
       despesas: resumo.despesas,
       lucro: resumo.saldoFinalPrevisto,
-      pendencias: resumo.pendingLaunches.length + financePending + whatsappPending,
+      pendencias: resumo.pendingLaunches.length + financePending,
     };
   });
 }
@@ -587,20 +586,17 @@ function sortCompanyRows(rows: CompanyRow[], metric: ComparisonMetric) {
 function buildAlerts(data: ErpData): AlertItem[] {
   const productionPending = data.production.filter((record) => !record.launchedConecta || record.status !== "OK").length;
   const financePending = data.finance.filter((entry) => entry.type.toLowerCase().includes("sa") && !entry.paid).length;
-  const whatsappPending = data.whatsappMessages.filter((message) => !message.launchedConecta || message.confidence < 0.75).length;
 
   return [
     { title: "Produção pendente", detail: productionPending > 0 ? `${productionPending} registros aguardando lançamento no Conecta.` : "Sem pendências operacionais críticas.", count: productionPending, href: "/operacao", tone: productionPending > 0 ? "red" : "blue" },
-    { title: "Financeiro em aberto", detail: financePending > 0 ? `${financePending} contas a pagar ainda não quitadas.` : "Não há contas em aberto no momento.", count: financePending, href: "/financeiro", tone: financePending > 0 ? "yellow" : "blue" },
-    { title: "WhatsApp e comunicação", detail: whatsappPending > 0 ? `${whatsappPending} mensagens pedindo conferência ou lançamento.` : "Comunicação sem pendências críticas.", count: whatsappPending, href: "/whatsapp", tone: whatsappPending > 0 ? "yellow" : "blue" },
+    { title: "Financeiro em aberto", detail: financePending > 0 ? `${financePending} contas a pagar ainda não quitadas.` : "Não há contas em aberto no momento.", count: financePending, href: "/financeiro", tone: financePending > 0 ? "yellow" : "blue" }
   ];
 }
 
 function buildQuickItems(dataByCompany: ErpData, resumo: ReturnType<typeof calcularResumoERP>): QuickItem[] {
   const productionPending = resumo.pendingLaunches.length;
   const financePending = dataByCompany.finance.filter((entry) => entry.type.toLowerCase().includes("sa") && !entry.paid).length;
-  const whatsappPending = dataByCompany.whatsappMessages.filter((message) => !message.launchedConecta || message.confidence < 0.75).length;
-  const employeesPending = dataByCompany.employees.filter(
+    const employeesPending = dataByCompany.employees.filter(
     (employee) => employee.situacao !== "ATIVO" || employee.feriasVencidas.toUpperCase() === "SIM" || employee.nrsVencido.toUpperCase() === "SIM",
   ).length;
   const materialPending = dataByCompany.materials.filter((material) => material.status !== "Disponivel").length;
@@ -609,7 +605,6 @@ function buildQuickItems(dataByCompany: ErpData, resumo: ReturnType<typeof calcu
   return [
     { title: "Produção", href: "/operacao", description: "Lançamentos e controle operacional.", badge: productionPending, icon: "production" },
     { title: "Financeiro", href: "/financeiro", description: "Entradas, saídas, saldo e previsões.", badge: financePending, icon: "finance" },
-    { title: "WhatsApp", href: "/whatsapp", description: "Mensagens e validações da equipe.", badge: whatsappPending, icon: "chat" },
     { title: "Checklist", href: "/checklist", description: "Entrega de EPIs e assinatura digital.", badge: 0, icon: "calculator" },
     { title: "Funcionários", href: "/funcionarios", description: "Cadastro, status e movimentações.", badge: employeesPending, icon: "users" },
     { title: "Materiais", href: "/materiais", description: "Estoque, edição e consumo por operação.", badge: materialPending, icon: "materials" },
@@ -702,3 +697,4 @@ function alertToneClass(tone: AlertItem["tone"]) {
   if (tone === "yellow") return "border-yellow-500/20 bg-yellow-500/10 hover:border-yellow-500/40";
   return "border-blue-500/20 bg-blue-500/10 hover:border-blue-500/40";
 }
+

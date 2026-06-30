@@ -14,7 +14,7 @@ type ErpShellProps = {
   active:
     | "dashboard"
     | "modulos"
-    | "operacao"
+  | "operacao"
   | "whatsapp"
   | "checklist"
   | "privacidade"
@@ -33,7 +33,6 @@ const navigation = [
   { key: "dashboard", label: "Dashboard", href: "/dashboard", icon: "home" },
   { key: "modulos", label: "Módulos", href: "/modulos", icon: "grid" },
   { key: "operacao", label: "Produção", href: "/operacao", icon: "activity" },
-  { key: "whatsapp", label: "WhatsApp", href: "/whatsapp", icon: "message" },
   { key: "checklist", label: "Checklist", href: "/checklist", icon: "clipboard" },
   { key: "indicadores", label: "Indicadores", href: "/indicadores", icon: "chart" },
   { key: "previafinanceira", label: "Prévia financeira", href: "/previa-financeira", icon: "calculator" },

@@ -12,13 +12,6 @@ const modules = [
     description: "Controle operacional, registros e integração com códigos Conecta.",
   },
   {
-    href: "/whatsapp",
-    title: "WhatsApp",
-    icon: "✉",
-    color: "border-emerald-500/60 text-emerald-300",
-    description: "Leitura de mensagens, parsing dos dados e geração automática do JSON.",
-  },
-  {
     href: "/checklist",
     title: "Checklist",
     icon: "✓",
@@ -117,3 +110,4 @@ export default function ModulosPage() {
     </ErpShell>
   );
 }
+
