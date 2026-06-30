@@ -156,10 +156,12 @@ export function ErpShell({ active, children }: ErpShellProps) {
 
       {isMobile ? (
         <aside
-          className={`fixed inset-y-0 left-0 z-50 w-[86vw] max-w-sm border-r border-white/10 bg-black shadow-2xl shadow-black/40 transition-transform duration-300 ${
-            mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`fixed inset-y-0 left-0 z-50 w-[86vw] max-w-sm border-r border-white/10 bg-black shadow-2xl shadow-black/40 transition-transform duration-300`}
           aria-hidden={!mobileMenuOpen}
+          style={{
+            transform: mobileMenuOpen ? "translateX(0)" : "translateX(-100%)",
+            willChange: "transform",
+          }}
         >
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
